@@ -7,10 +7,12 @@ import itertools
 
 screen = {}
 
-def coord_to_str(coord):
-    return '-'.join([str(i) for i in coord])
 
-def add_c(scr: dict, coord: Union[list, tuple], value):
+def coord_to_str(coord):
+    return "-".join([str(i) for i in coord])
+
+
+def add_c(screen: dict, coord: Union[list, tuple], value):
     # add coord to screen
     coord_str = coord_to_str(coord)
     screen[coord_str] = value
@@ -19,29 +21,29 @@ def add_c(scr: dict, coord: Union[list, tuple], value):
 def get_c(screen, coord: Union[list, tuple]):
     return screen[coord_to_str(coord)]
 
+
 def coord_in_scr(screen: dict, coord: Union[list, tuple]):
     return coord_to_str(coord) in screen
 
 
 def render(screen, displayx, displayy, debug=False):
     c = 0
-    xxx = ''
+    xxx = ""
     for x in range(displayx):
         for y in range(displayy):
             c += 1
-            if c%(displayy ) == 0:
+            if c % (displayy) == 0:
                 if debug:
-                    end = '|\n'
+                    end = "|\n"
                 else:
-                    end = '\n'
+                    end = "\n"
             else:
-                end = ''
+                end = ""
 
             if not coord_in_scr(screen, [x, y]):
-                xxx = xxx+ ' '+ end
+                xxx = xxx + " " + end
             else:
-                xxx = xxx+ get_c(screen, [x, y]) +end
-
+                xxx = xxx + get_c(screen, [x, y]) + end
 
     return xxx
 
@@ -52,6 +54,8 @@ def render(screen, displayx, displayy, debug=False):
 
 def corx(xc, r, theta):
     return xc + (r * math.cos(math.radians(theta)))
+
+
 def cory(yc, r, theta):
     return yc + (r * math.sin(math.radians(theta)))
 
@@ -64,7 +68,7 @@ def cory(yc, r, theta):
 # coord to grid:
 
 grid_s = 20
-centerx = 270
+centerx = 250
 centery = 250
 rx = 200
 ry = 200
@@ -73,56 +77,76 @@ ry = 200
 def add_text(screen, text, gx, gy):
     x = 0
     for c in text:
-        
-        add_c(screen, [gy, gx+x], c)
-        x +=1
+
+        add_c(screen, [gy, gx + x], c)
+        x += 1
+
 
 def sector_line(centerx, centery, rx, ry, degstart, degend, grid_s, screen, symbol):
     for i in range(degstart, degend):
         x = corx(centerx, rx, i)
         y = cory(centery, ry, i)
 
-        gx = int(x//grid_s)
-        gy = int(y//grid_s)
+        gx = int(x // grid_s)
+        gy = int(y // grid_s)
 
         add_c(screen, [gx, gy], symbol)
 
 
-def pie_chart_raw(data: dict, centerx, centery, rx, ry, grid_s, screen, return_rich=False, __debug=False, fill=False):
-    pie_cols = itertools.cycle(['\033[31m', '\033[32m', '\033[33m', '\033[35m'])
+def pie_chart_raw(
+    data: dict,
+    centerx,
+    centery,
+    rx,
+    ry,
+    grid_s,
+    screen,
+    return_rich=False,
+    __debug=False,
+    fill=False,
+    title="pie chart",
+):
+    pie_cols = itertools.cycle(["\033[31m", "\033[32m", "\033[33m", "\033[35m"])
     total = sum([data[d] for d in data])
     deg_current = 0
     # for i in range(10):
 
-    if fill==False:
-        fill_factor = 10
-    else:
+    if fill == True:
         fill_factor = 21
+    else:
+        fill_factor = 5
+
     for s, d in enumerate(data):
-        
-        deg_step = int((data[d]/total)*360)
+
+        deg_step = int((data[d] / total) * 360)
         col = next(pie_cols)
 
         # legend
-        add_text(screen, col+d, 25, s+2)
+        add_text(screen, col + d, 25, s + 2)
         for i in range(10):
 
             if not return_rich:
-                text = col + '█\033[39m' # reset col
-            else: 
-                text = col + '█'
-            sector_line(centerx, centery, rx-(i*fill_factor), ry-(i*fill_factor), deg_current, deg_current+deg_step, grid_s, screen, text)
+                text = col + "█\033[39m"  # reset col
+            else:
+                text = col + "█"
+            sector_line(
+                centerx,
+                centery,
+                rx - (i * fill_factor),
+                ry - (i * fill_factor),
+                deg_current,
+                deg_current + deg_step,
+                grid_s,
+                screen,
+                text,
+            )
         deg_current += deg_step
 
-
-    add_text(screen, 'pie chart', 0, 1)
-
+    add_text(screen, title, 0, 1)
 
     display = 45
 
-    source = render(screen, display-15, display, debug=__debug)
-
-
+    source = render(screen, display - 20, display, debug=__debug)
 
     if return_rich:
         return Text.from_ansi(source)
@@ -130,15 +154,39 @@ def pie_chart_raw(data: dict, centerx, centery, rx, ry, grid_s, screen, return_r
         return source
 
 
-
-def pie_chart(data, return_rich=False):
-    global centerx, centery, rx, ry, grid_s, screen
+def pie_chart(data, return_rich=False, title="pie chart", screen=None):
+    global centerx, centery, rx, ry, grid_s
     fill = True
-    return pie_chart_raw(data, centerx, centery, rx, ry, grid_s, screen, fill=fill, return_rich=return_rich)
+    if screen is None:
+        screen = {}
+    return pie_chart_raw(
+        data,
+        centerx,
+        centery,
+        rx,
+        ry,
+        grid_s,
+        screen,
+        fill=fill,
+        return_rich=return_rich,
+        title=title,
+    )
 
 
-
-def doughnut_chart(data, return_rich=False):
-    global centerx, centery, rx, ry, grid_s, screen
+def doughnut_chart(data, return_rich=False, title="doughnut chart", screen=None):
+    global centerx, centery, rx, ry, grid_s
     fill = False
-    return pie_chart_raw(data, centerx, centery, rx, ry, grid_s, screen, fill=fill, return_rich=return_rich)
+    if screen is None:
+        screen = {}
+    return pie_chart_raw(
+        data,
+        centerx,
+        centery,
+        rx,
+        ry,
+        grid_s,
+        screen,
+        fill=fill,
+        return_rich=return_rich,
+        title=title,
+    )

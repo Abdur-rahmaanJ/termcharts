@@ -4,7 +4,7 @@ def coord_to_str(coord):
     return "-".join([str(i) for i in coord])
 
 
-def add_coord(screen: dict, coord: Union[list, tuple], value):
+def add_char(screen: dict, coord: Union[list, tuple], value):
     # add coord to screen
     coord_str = coord_to_str(coord)
     screen[coord_str] = value
@@ -45,8 +45,17 @@ def add_text(screen, text, gx, gy, mode='h'):
     y = 0
     for c in text:
         if mode == 'h':
-            add_coord(screen, [gy, gx + x], c)
+            add_char(screen, [gy, gx + x], c)
             x += 1
         if mode == 'v':
-            add_coord(screen, [gy+y, x], c)
+            add_char(screen, [gy+y, x], c)
             y += 1
+
+
+def screen():
+    return {}
+from collections import ChainMap
+
+def merge_screens(screens):
+    screens = reversed(screens)
+    return dict(ChainMap(*screens))

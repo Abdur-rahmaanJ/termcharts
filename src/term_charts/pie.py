@@ -1,7 +1,7 @@
 import math
 import itertools
 from term_charts.engine import coord_to_str
-from term_charts.engine import add_coord
+from term_charts.engine import add_char
 from term_charts.engine import get_coord
 from term_charts.engine import coord_in_scr
 from term_charts.engine import render
@@ -32,7 +32,7 @@ def sector_line(centerx, centery, rx, ry, degstart, degend, grid_s, screen, symb
         gx = int(x // grid_s)
         gy = int(y // grid_s)
 
-        add_coord(screen, [gx, gy], symbol)
+        add_char(screen, [gx, gy], symbol)
 
 
 def pie_chart_raw(

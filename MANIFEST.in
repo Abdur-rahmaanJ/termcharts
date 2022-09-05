@@ -1,0 +1,5 @@
+recursive-include src/term_charts *
+recursive-include reqs *
+recursive-include assets *
+recursive-exclude __pycache__ *
+recursive-exclude sandbox *

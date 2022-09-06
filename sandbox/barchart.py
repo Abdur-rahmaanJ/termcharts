@@ -1,6 +1,5 @@
-from term_charts.bar import bar_chart_raw
+import termcharts
 
 
-
-
-print(bar_chart_raw({'roll': 24, 'bss':10, 'wes':30, 'ewfwef':50}, title='Brunches'), flush=True)
+chart = termcharts.bar({'roll': 24, 'bss':10, 'wes':30, 'ewfwef':50}, title='Brunches')
+print(chart)

@@ -4,12 +4,12 @@
 # 0-0
 import math
 import itertools
-from term_charts.engine import coord_to_str
-from term_charts.engine import add_char
-from term_charts.engine import get_coord
-from term_charts.engine import coord_in_scr
-from term_charts.engine import pie_render as render
-from term_charts.engine import pie_add_text as add_text
+from termcharts.engine import coord_to_str
+from termcharts.engine import add_char
+from termcharts.engine import get_coord
+from termcharts.engine import coord_in_scr
+from termcharts.engine import pie_render as render
+from termcharts.engine import pie_add_text as add_text
 
 
 

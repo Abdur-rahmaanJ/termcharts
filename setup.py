@@ -31,7 +31,7 @@ if sys.argv[-1] == "publish":  # requests
 with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 setup(
-    name="term-charts",  # Required
+    name="termcharts",  # Required
     version="1.0.0",  # Required
     description="Download stats for Python packages",  # Optional
     long_description=long_description,  # Optional
@@ -89,8 +89,8 @@ setup(
         "rich": ["rich"]
     },
     project_urls={  # Optional
-        "Bug Reports": "https://github.com/Abdur-RahmaanJ/term-charts/issues",
-        "Source": "https://github.com/Abdur-RahmaanJ/term-charts/",
+        "Bug Reports": "https://github.com/Abdur-RahmaanJ/termcharts/issues",
+        "Source": "https://github.com/Abdur-RahmaanJ/termcharts/",
     },
     packages=find_packages(),
     # entry_points={"console_scripts": ["download-stats=download_stats.main:main"]},

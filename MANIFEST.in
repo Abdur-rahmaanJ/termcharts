@@ -1,4 +1,4 @@
-recursive-include src/term_charts *
+recursive-include src/termcharts *
 recursive-include reqs *
 recursive-include assets *
 recursive-exclude __pycache__ *

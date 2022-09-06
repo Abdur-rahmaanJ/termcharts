@@ -48,11 +48,11 @@ def pie_render(screen, displayx, displayy, debug=False):
 
     return xxx
 
-def render(screen, size_x, size_y, debug=False):
+def render(screen, size_x, size_y):
+    RESET = '\033[39m'
     string = ''
     end = ''
     counter = 0
-
     for y in range(size_y):
         for x in range(size_x):
             counter += 1
@@ -70,7 +70,6 @@ def render(screen, size_x, size_y, debug=False):
                     string = string + screen[coord] + end
 
     
-
     return string
 
 def pie_add_text(screen_, text, gx, gy, mode='h'):

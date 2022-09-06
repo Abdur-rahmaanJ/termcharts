@@ -1,5 +1,5 @@
-from term_charts.engine import render
-from term_charts.engine import add_char
+from termcharts.engine import render
+from termcharts.engine import add_char
 
 
 

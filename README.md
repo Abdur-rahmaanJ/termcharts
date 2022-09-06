@@ -1,108 +1,63 @@
-# download-stats
+# termcharts
 
-View your pypi download stats
-
-# cli
+Terminal charts with rich compatibility in mind
 
 
-```
-$ download-stats shopyo
-```
+![](https://github.com/Abdur-RahmaanJ/termcharts/raw/stable/assets/pie.png)
 
-![](https://github.com/Abdur-RahmaanJ/download-stats/raw/stable/assets/download_stats.png)
+# bar
 
-```
-$ download-stats --compare flask django fastapi
-```
+![](https://github.com/Abdur-RahmaanJ/termcharts/raw/stable/assets/bar.png)
 
-![](https://github.com/Abdur-RahmaanJ/download-stats/raw/stable/assets/compare.png)
-
-
-```
-$ download-stats --self # same as `download-stats download-stats`
-```
-
-## general
 
 ```python
->>> from download_stats import stats 
->>> stats('shopyo')
-{
-    "total": "41327",
-    "30_days": "1484",
-    "7_days": "506",
-    "by_version": [
-        ["Date", "4.5.7", "4.5.8", "4.6.0", "Sum", "Total"],
-        ["2022-09-01", "0", "1", "3", "4", "24"],
-        ["2022-08-31", "2", "1", "17", "20", "126"],
-        ...
-        ["2022-06-04", "0", "0", "0", "0", "9"],
-    ],
-}
+import termcharts
+
+
+chart = termcharts.bar({'roll': 24, 'bread':10, 'rice':30, 'pasta':50}, title='brunches')
+print(chart)
 ```
 
-## recent
+# pie
 
 ```python
->>> from download_stats import recent                                                                          
->>> recent('shopyo') 
-{
-    "data": {"last_day": 23, "last_month": 454, "last_week": 142},
-    "package": "shopyo",
-    "type": "recent_downloads",
-}
+import termcharts
+
+
+chart = termcharts.pie({'pencil':10, 'eraser': 20, 'ruler': 30}, title='stationary')
+print(chart)
 ```
 
-## version
+# doughnut
 
 ```python
->>> from download_stats import version
->>> version('shopyo')
-{
-    "data": [
-        {"category": "3", "date": "2022-03-06", "downloads": 1},
-        ...
-        {"category": "null", "date": "2022-08-31", "downloads": 55},
-    ],
-    "package": "shopyo",
-    "type": "python_major_downloads",
-}
->>> version('shopyo', version=3.9)
-{
-    "data": [
-        {"category": "3.9", "date": "2022-03-12", "downloads": 1},
-        {"category": "3.9", "date": "2022-03-18", "downloads": 15},
-        ...
-        {"category": "3.9", "date": "2022-08-29", "downloads": 2},
-    ],
-    "package": "shopyo",
-    "type": "python_minor_downloads",
-}
+import termcharts
+
+
+chart = termcharts.doughnut({'a':10, 'b': 20, 'c': 30}, title='aphabet dist')
+print(chart)
 ```
 
-## system
+
+# Rich compatibility
+
 
 ```python
->>> from download_stats import system
->>> system('shopyo')
-{
-    "data": [
-        {"category": "Darwin", "date": "2022-03-21", "downloads": 1},
-        ...
-        {"category": "Windows", "date": "2022-08-22", "downloads": 2},
-    ],
-    "package": "shopyo",
-    "type": "system_downloads",
-}
->>> system('shopyo', name='linux')
-{
-    "data": [
-        {"category": "Linux", "date": "2022-03-08", "downloads": 1},
-        ...
-        {"category": "Linux", "date": "2022-08-31", "downloads": 3},
-    ],
-    "package": "shopyo",
-    "type": "system_downloads",
-}
+from termcharts import pie
+from termcharts import doughnut
+from termcharts import bar
 
+from rich.console import Console
+from rich.columns import Columns
+from rich.panel import Panel
+
+console = Console()
+
+charts = [
+    doughnut({'a':10, 'b': 20, 'c': 30, 'd': 20}, title='aphabet dist', rich=True), 
+    pie({'wefwefqwddwqdqwda':10, 'b': 20, 'c': 30, 'd': 20}, rich=True),
+    bar({'roll': 24, 'bss':10, 'wes':30, 'ewfwef':50}, title='Brunches', rich=True)
+    ]
+user_renderables = [Panel(x, expand=True) for x in charts]
+console.print(Columns(user_renderables))
 ```

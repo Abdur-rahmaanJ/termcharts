@@ -1,5 +1,5 @@
-from term_charts import pie
-from term_charts import doughnut
+from termcharts import pie
+from termcharts import doughnut
 
 
 print(doughnut({'wqdqwdqwd':10, 'qwdwqdwqdqwd': 20, 'wqdqwd': 30}, title='aphabet dist'))

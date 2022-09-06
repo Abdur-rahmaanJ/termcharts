@@ -9,7 +9,7 @@ from term_charts.engine import add_char
 from term_charts.engine import get_coord
 from term_charts.engine import coord_in_scr
 from term_charts.engine import pie_render as render
-from term_charts.engine import add_text
+from term_charts.engine import pie_add_text as add_text
 
 
 

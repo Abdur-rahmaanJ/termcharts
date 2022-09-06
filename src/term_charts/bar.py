@@ -8,72 +8,48 @@ from term_charts.formula import constrain
 
 import math
 from itertools import cycle
+RESET = '\033[39m'
+def bar_chart_raw(data, title):
+    top_pad = 3
+    right_pad = 2 
+    values_x = 500
+    values_y = 100
 
-def bar_chart_raw():
-	
-	values_x = 500
-	values_y = 100
+    term_size_x = 40 + 1
+    term_size_y = top_pad + len(data) + (len(data)-1) + 2
 
-	term_size_x = 100
-	term_size_y = 40
+    screen_axis = screen()
+    screen_chart = screen()
 
-	screen_axis = screen()
-	screen_chart = screen()
-
-	
-	cols = cycle(default_colors)
-	col = next(cols)
-	for x in range (0, values_x):
-		m = 4
-		c = 0
-		# y = m * x + c
-
-		k = 10
-		n = 10
+    
+    cols = cycle(default_colors)
+    
 
 
-		v = math.sin(math.radians(x)) 
-		# for t in range(0, 360):
-		
-		y = 10 + v* 50
+    # Add left bar
+    for i in range( term_size_x):
+        add_char(screen_axis, [0, i+top_pad], '\033[37m│')
 
-		# y = x**2 - 5
+    max_item = max([data[e] for e in data])
+    max_d_len = max([len(e) for e in data])
+    # Draw bars
+    space_pad = 1
+    for i, item in enumerate(data):
+        col = next(cols)
+        width = term_size_x-(right_pad+max_d_len+5)
+        number = int(constrain(data[item], 0, max_item, 0, width))
+        bar = f'{col}'+('█'* number)
+        bar = bar + f' {data[item]}'
+        add_text(screen_chart, bar, 1, top_pad+i+space_pad)
+        space_pad += 1
 
-		# y = k * x ** 1.1
+    # Add title
 
-		try:
-			gx = int(constrain(x, 0, values_x, 0, term_size_x, lessthan_sym='', morethan_sym=''))
-			gy = int(constrain(y, 0, values_y, 0, term_size_y, lessthan_sym='', morethan_sym=''))
+    add_text(screen_chart, '\033[37m'+title, 0, 1)
 
-			gy = term_size_y - gy
-			# print(x, y, gx, gy)
-
-			gx = gx + 5
-			gy = gy - 5
-			add_char(screen_chart, [gy, gx], col+'*\033[39m')
-		except:
-			pass
-
-	# add_text(screen_axis,'the lazy fox jumps over the quick dog', 0, 0)
-	# add_text(screen_axis,'the lazy fox jumps over the quick dog', 0, 0, mode='v')
-
-	# add_text(screen_axis, '-'*term_size_x, 0, 0, mode='hi', term_size_x=term_size_x, term_size_y=term_size_y)
-	# add_text(screen_axis, '+'+'|'*(term_size_y-1), 0, 0, mode='vi', term_size_x=term_size_x, term_size_y=term_size_y)
-
-
-	x_axis = '+' + '-'*(term_size_x-1)
-
-	# for x, char in enumerate(x_axis):
-	#    add_char(screen_axis, [term_size_x-1, x], char)
-
-	for x in range(term_size_x):
-		add_char(screen_axis, [term_size_y-1, x], '─')
-
-	add_text(screen_axis, '│'*(term_size_y-1)+'└', 0, 0, mode='v')
-
-	
-	main_screen = merge_screens([screen_chart, screen_axis])
-	return render(main_screen, term_size_x, term_size_y)
+    
+    main_screen = merge_screens([screen_chart, screen_axis])
+    return render(main_screen, term_size_x, term_size_y) + RESET
 
 
 

@@ -6,12 +6,12 @@ def coord_to_str(coord):
     return r
 
 
-def add_char(screen: dict, coord: Union[list, tuple], value):
+def add_char(screen_: dict, coord: Union[list, tuple], value):
     # add coord to screen
     coord_str = coord_to_str(coord)
 
 
-    screen[coord_str] = value
+    screen_[coord_str] = value
 
 
 def get_coord(screen, coord: Union[list, tuple]):
@@ -73,7 +73,7 @@ def render(screen, size_x, size_y, debug=False):
 
     return string
 
-def add_text(screen, text, gx, gy, mode='h'):
+def pie_add_text(screen_, text, gx, gy, mode='h'):
     x = 0
     y = 0
 
@@ -81,12 +81,26 @@ def add_text(screen, text, gx, gy, mode='h'):
 
     for c in text:
         if 'h' in mode:
-            add_char(screen, [gy, gx + x], c)
+            add_char(screen_, [gy, gx + x], c)
             x += 1
         if 'v' in mode:
-            add_char(screen, [gy+y, x], c)
+            add_char(screen_, [gy+y, x], c)
             y += 1
 
+
+def add_text(screen_, text, gx, gy, mode='h'):
+    x = 0
+    y = 0
+
+    
+
+    for c in text:
+        if 'h' in mode:
+            add_char(screen_, [gx + x, gy], c)
+            x += 1
+        if 'v' in mode:
+            add_char(screen_, [x, gy+y], c)
+            y += 1
 
 def screen():
     return {}

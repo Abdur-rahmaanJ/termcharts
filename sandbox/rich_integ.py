@@ -16,7 +16,7 @@ console = Console()
 
 charts = [
 	doughnut({'a':10, 'b': 20, 'c': 30, 'd': 20}, title='aphabet dist', rich=True), 
-	pie({'a':10, 'b': 20, 'c': 30, 'd': 20}, rich=True)]
+	pie({'wefwefqwddwqdqwda':10, 'b': 20, 'c': 30, 'd': 20}, rich=True)]
 user_renderables = [Panel(x, expand=True) for x in charts]
 # print(user_renderables)
 console.print(Columns(user_renderables))

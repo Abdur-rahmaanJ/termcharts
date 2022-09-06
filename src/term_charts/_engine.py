@@ -10,7 +10,6 @@ def add_char(screen: dict, coord: Union[list, tuple], value):
     # add coord to screen
     coord_str = coord_to_str(coord)
 
-
     screen[coord_str] = value
 
 
@@ -21,32 +20,6 @@ def get_coord(screen, coord: Union[list, tuple]):
 def coord_in_scr(screen: dict, coord: Union[list, tuple]):
     return coord_to_str(coord) in screen
 
-
-def pie_render(screen, displayx, displayy, debug=False):
-    displayx, displayy = displayy, displayx
-
-    c = 0
-    xxx = ""
-    for x in range(displayx-20):
-        for y in range(displayy):
-            c += 1
-            if c % (displayy) == 0:
-                if debug:
-                    end = "|\n"
-                else:
-                    end = "\n"
-            else:
-                end = ""
-
-
-            if (x <= displayx and y <= displayy):
-                # print(x, y, displayx, displayy)
-                if not coord_in_scr(screen, [x, y]):
-                    xxx = xxx + " " + end
-                else:
-                    xxx = xxx + get_coord(screen, [x, y]) + end
-
-    return xxx
 
 def render(screen, size_x, size_y, debug=False):
     string = ''
@@ -72,6 +45,7 @@ def render(screen, size_x, size_y, debug=False):
     
 
     return string
+
 
 def add_text(screen, text, gx, gy, mode='h'):
     x = 0

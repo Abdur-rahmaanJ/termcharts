@@ -4,16 +4,15 @@ https://packaging.python.org/guides/distributing-packages-using-setuptools/
 https://github.com/pypa/sampleproject
 python setup.py publish to publish
 """
-
 import glob
 import os
 import sys
 
 import setuptools
-
-# Always prefer setuptools over distutils
 from setuptools import find_packages
 from setuptools import setup
+
+# Always prefer setuptools over distutils
 
 # from setuptools import find_packages
 
@@ -80,13 +79,13 @@ setup(
     # .read()
     # .split("\n"),  # Optional
     install_requires=open(os.path.join(here, "reqs", "app.txt"), encoding="utf-8")
-        .read()
-        .split("\n"),
+    .read()
+    .split("\n"),
     extras_require={
         "dev": open(os.path.join(here, "reqs", "dev.txt"), encoding="utf-8")
         .read()
         .split("\n"),
-        "rich": ["rich"]
+        "rich": ["rich"],
     },
     project_urls={  # Optional
         "Bug Reports": "https://github.com/Abdur-RahmaanJ/termcharts/issues",
@@ -96,4 +95,3 @@ setup(
     # entry_points={"console_scripts": ["download-stats=download_stats.main:main"]},
 )
 # Footer
-

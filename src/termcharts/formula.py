@@ -1,6 +1,6 @@
-
-
-def constrain(val, start, end, realstart, realend, lessthan_sym=None, morethan_sym=None):
+def constrain(
+    val, start, end, realstart, realend, lessthan_sym=None, morethan_sym=None
+):
     # from hooman
     # mouseX 0 width 0 255
     # v = (mouseX / (end-start)) * (realend-realstart)

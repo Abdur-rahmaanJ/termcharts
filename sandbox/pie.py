@@ -1,6 +1,5 @@
-from termcharts import pie
 from termcharts import doughnut
+from termcharts import pie
 
-
-print(doughnut({'wqdqwdqwd':10, 'qwdwqdwqdqwd': 20, 'wqdqwd': 30}, title='aphabet dist'))
-print(pie({'qwdqwdqwd':10, 'qwdwqfwef': 20, 'ewfwef': 30}))
+print(doughnut({"1": 10, "2": 20, "3": 30}, title="aphabet dist"), flush=True)
+print(pie({"aaa": 10, "bbb": 20, "ccc": 30}), flush=True)

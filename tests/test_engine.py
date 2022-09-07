@@ -1,21 +1,21 @@
 import sys
 import pytest
 sys.path.append('.')
-from src.termcharts.engine import (
-    merge_screens,
-    coord_in_scr,
-    pie_add_text,
-    coord_to_str,
-    pie_render,
-    get_coord,
-    add_text,
-    add_char,
-    render,
-)
+from src.termcharts.engine import merge_screens
+from src.termcharts.engine import coord_in_scr
+from src.termcharts.engine import pie_add_text
+from src.termcharts.engine import coord_to_str
+from src.termcharts.engine import pie_render
+from src.termcharts.engine import get_coord
+from src.termcharts.engine import add_text
+from src.termcharts.engine import add_char
+from src.termcharts.engine import render
+
 
 """
-Testing module (with pytest) for termcharts/engine.py
-
+Pytest docs:
+    - https://docs.pytest.org/en/7.1.x/
+Testing module for termcharts/engine.py
 Each function has it's own `screen` localized and tested separately
 """
 

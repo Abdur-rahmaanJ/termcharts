@@ -61,3 +61,28 @@ charts = [
 user_renderables = [Panel(x, expand=True) for x in charts]
 console.print(Columns(user_renderables))
 ```
+
+
+# Testing
+
+All testing is currently handled by the [pytest](https://docs.pytest.org/en/7.1.x/) module and are incomplete at the momment.
+
+Installation:
+```
+pip install -U pytest
+```
+
+Run all the testcases in a file:
+```
+pytest tests/<file>.py
+```
+
+Run one testcase in a file:
+```
+pytest tests/<file>.py::<function_name>
+```
+
+Exclude one testcase in a file:
+```
+pytest tests/<file>.py -k 'not <function_name>'
+```

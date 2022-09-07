@@ -64,10 +64,10 @@ def render(screen, size_x, size_y):
             coord = f"{x}-{y}"
 
             if x <= size_x and y <= size_y:
-                if coord not in screen:
-                    string = string + "  " + end
+                if not coord_in_scr(screen, [x, y]):
+                    string = string + " " + end
                 else:
-                    string = string + screen[coord] + end
+                    string = string + get_coord(screen, [x, y]) + end
 
     return string
 

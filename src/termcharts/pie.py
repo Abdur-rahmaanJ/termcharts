@@ -3,6 +3,8 @@
 import itertools
 import math
 
+from termcharts.colors import Color
+from termcharts.colors import default_colors
 from termcharts.engine import add_char
 from termcharts.engine import coord_in_scr
 from termcharts.engine import coord_to_str
@@ -24,7 +26,6 @@ centerx = 250
 centery = 250
 rx = 200
 ry = 200
-RESET = "\033[39m"
 
 
 def sector_line(centerx, centery, rx, ry, degstart, degend, grid_s, screen, symbol):
@@ -51,7 +52,6 @@ def pie_chart_raw(
     fill=False,
     title="pie chart",
 ):
-    pie_cols = itertools.cycle(["\033[31m", "\033[32m", "\033[33m", "\033[35m"])
     total = sum(data[d] for d in data)
     deg_current = 0
     # for i in range(10):
@@ -65,7 +65,7 @@ def pie_chart_raw(
     for s, d in enumerate(data):
 
         deg_step = int((data[d] / total) * 360)
-        col = next(pie_cols)
+        col = next(default_colors)
 
         # legend
         # add_text(screen, col + d, 25, s + 2)
@@ -75,11 +75,11 @@ def pie_chart_raw(
         # print(col+d)
         # print(col+d)
         if not return_rich:
-            txt = f"{col} {d} {RESET}"
+            txt = f"{col} {d} {Color.RESET}"
         else:
             txt = f"{col} {d}"
 
-        # print(d, col+d, col+d+RESET, file=open('z.log', 'w+'))
+        # print(d, col+d, col+d+Color.RESET, file=open('z.log', 'w+'))
 
         # txt = d
         add_text(screen, txt, 25, s + 2)
@@ -87,7 +87,7 @@ def pie_chart_raw(
         for i in range(10):
 
             if not return_rich:
-                text = col + "█\033[39m"  # reset col
+                text = col + "█" + Color.RESET  # reset col
             else:
                 text = col + "█"
             sector_line(

@@ -94,7 +94,7 @@ def add_text(screen_, text, gx, gy, mode="h"):
             add_char(screen_, [gx + x, gy], c)
             x += 1
         if "v" in mode:
-            add_char(screen_, [x, gy + y], c)
+            add_char(screen_, [gx, gy + y], c)
             y += 1
 
 

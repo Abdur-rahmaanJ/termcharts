@@ -90,7 +90,7 @@ def bar_chart_raw_v(data, title, return_rich=False):
     space_pad = 1
 
     for i, item in enumerate(data):
-        print(item)
+        # print(item)
         col = next(default_colors)
         height = term_size_y - (top_pad + bottom_pad)
         number = int(constrain(data[item], 0, max_item, 0, height))

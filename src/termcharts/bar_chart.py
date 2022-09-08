@@ -64,7 +64,7 @@ def bar_chart_raw_h(data, title, return_rich=False):
 
 
 def bar_chart_raw_v(data, title, return_rich=False):
-    top_pad = 3
+    top_pad = 4
     right_pad = 2
     values_x = 500
     values_y = 100
@@ -74,39 +74,42 @@ def bar_chart_raw_v(data, title, return_rich=False):
     max_d_len = max(len(e) for e in data)
 
     term_size_y = 15
-    term_size_x = len(data) + (len(data) - 1) + 2
+    chart_size_x = len(data) + (len(data) - 1) + 2
+    if title is None:
+        term_size_x = chart_size_x
+    elif title:
+        if len(title) > chart_size_x:
+            term_size_x = len(title) + 2
+        else:
+            term_size_x = chart_size_x + 5
 
     screen_axis = screen()
     screen_chart = screen()
 
-    # Add left bar
-    add_text(screen_axis, "─" * term_size_x, 0, term_size_y - 1)
-
     # Draw bars
-    # space_pad = 1
-    # for i, item in enumerate(data):
-    #     col = next(default_colors)
-    #     height = term_size_y - (top_pad + max_d_len)
-    #     number = int(constrain(data[item], 0, max_item, 0, height))
-    #     bar = f"{col}" + ("█" * number)
+    space_pad = 1
 
-    #     if not return_rich:
-    #         bar = bar + f" {data[item]}" + Color.RESET
-    #     else:
-    #         bar = bar + f" {data[item]}"
-    #     add_text(screen_chart, bar, 1, top_pad + i + space_pad, mode='v')
-    #     space_pad += 1
+    for i, item in enumerate(data):
+        print(item)
+        col = next(default_colors)
+        height = term_size_y - (top_pad + bottom_pad)
+        number = int(constrain(data[item], 0, max_item, 0, height))
 
-    # for i, item in enumerate(data):
-
-    col = next(default_colors)
-    print(term_size_y, term_size_y - len("xxx") - bottom_pad)
-    add_text(screen_chart, "xxx", 1, 11, mode="v")
+        if not return_rich:
+            bar = [f"{col}█{Color.RESET}" for i in range(number + 1)]
+        else:
+            bar = [f"{col}█" for i in range(number + 1)]
+        txt_start_y = term_size_y - len(bar) - bottom_pad
+        add_text(screen_chart, bar, i + space_pad, txt_start_y, mode="v")
+        space_pad += 1
 
     # Add title
-
     add_text(screen_chart, Color.white + title, 0, 1)
 
+    # Add bottom bar
+    add_text(screen_axis, [f"{Color.white}─" * chart_size_x], 0, term_size_y - 1)
+
+    # ---
     main_screen = merge_screens([screen_chart, screen_axis])
 
     source = render(main_screen, term_size_x, term_size_y)

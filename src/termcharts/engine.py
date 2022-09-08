@@ -85,7 +85,8 @@ def pie_add_text(screen_, text, gx, gy, mode="h"):
             y += 1
 
 
-def add_text(screen_, text, gx, gy, mode="h"):
+def add_text(screen_, text: Union[list, str], gx, gy, mode="h"):
+    """List is the preferred text type, colors integrate without problem"""
     x = 0
     y = 0
 

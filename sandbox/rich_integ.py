@@ -26,6 +26,13 @@ charts = [
         rich=True,
         mode="v",
     ),
+    bar([10, 20, 30, 40], title="Brunches", rich=True),
+    bar(
+        [10, 20, 30, 40],
+        title="Brunches",
+        rich=True,
+        mode="v",
+    ),
 ]
 user_renderables = [Panel(x, expand=True) for x in charts]
 # print(user_renderables)

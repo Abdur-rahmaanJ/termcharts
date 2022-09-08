@@ -1,5 +1,6 @@
 import math
 from itertools import cycle
+from typing import Union
 
 from termcharts.colors import Color
 from termcharts.colors import default_colors
@@ -11,7 +12,7 @@ from termcharts.engine import screen
 from termcharts.formula import constrain
 
 
-def bar_chart_raw_h(data, title, return_rich=False):
+def bar_chart_raw_h(data: Union[dict, list], title, return_rich=False):
     top_pad = 3
     right_pad = 2
     values_x = 500
@@ -27,21 +28,30 @@ def bar_chart_raw_h(data, title, return_rich=False):
     for i in range(term_size_x):
         add_char(screen_axis, [0, i + top_pad], Color.white + "│" + Color.RESET)
 
-    max_item = max(data[e] for e in data)
-    max_d_len = max(len(e) for e in data)
+    if isinstance(data, dict):
+        max_item = max(data[e] for e in data)
+        max_d_len = max(len(e) for e in data)
+    elif isinstance(data, list):
+        max_item = max(data)
 
     # Draw bars
     space_pad = 1
     for i, item in enumerate(data):
         col = next(default_colors)
-        width = term_size_x - (right_pad + max_d_len + 5)
-        number = int(constrain(data[item], 0, max_item, 0, width))
+        if isinstance(data, dict):
+            width = term_size_x - (right_pad + max_d_len + 5)
+            value = data[item]
+        elif isinstance(data, list):
+            width = term_size_x - (right_pad + len(str(max_item)) + 5)
+            value = item
+
+        number = int(constrain(value, 0, max_item, 0, width))
         bar = f"{col}" + ("█" * number)
 
         if not return_rich:
-            bar = bar + f" {data[item]}" + Color.RESET
+            bar = bar + f" {value}" + Color.RESET
         else:
-            bar = bar + f" {data[item]}"
+            bar = bar + f" {value}"
         add_text(screen_chart, bar, 1, top_pad + i + space_pad)
         space_pad += 1
 
@@ -70,8 +80,11 @@ def bar_chart_raw_v(data, title, return_rich=False):
     values_y = 100
     bottom_pad = 1
 
-    max_item = max(data[e] for e in data)
-    max_d_len = max(len(e) for e in data)
+    if isinstance(data, dict):
+        max_item = max(data[e] for e in data)
+        max_d_len = max(len(e) for e in data)
+    elif isinstance(data, list):
+        max_item = max(data)
 
     term_size_y = 15
     chart_size_x = len(data) + (len(data) - 1) + 2
@@ -90,10 +103,15 @@ def bar_chart_raw_v(data, title, return_rich=False):
     space_pad = 1
 
     for i, item in enumerate(data):
-        # print(item)
+
         col = next(default_colors)
         height = term_size_y - (top_pad + bottom_pad)
-        number = int(constrain(data[item], 0, max_item, 0, height))
+        if isinstance(data, dict):
+            value = data[item]
+        elif isinstance(data, list):
+            value = item
+
+        number = int(constrain(value, 0, max_item, 0, height))
 
         if not return_rich:
             bar = [f"{col}█{Color.RESET}" for i in range(number + 1)]

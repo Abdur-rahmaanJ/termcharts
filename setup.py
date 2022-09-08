@@ -31,7 +31,7 @@ with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 setup(
     name="termcharts",  # Required
-    version="1.1.0",  # Required
+    version="1.1.1",  # Required
     description="Download stats for Python packages",  # Optional
     long_description=long_description,  # Optional
     long_description_content_type="text/markdown",  # Optional (see note above)

@@ -18,3 +18,15 @@ chart = termcharts.bar(
     mode="v",
 )
 print(chart)
+chart = termcharts.bar(
+    [10, 20, 30, 40],
+    title="Brunches",
+    mode="v",
+)
+print(chart)
+chart = termcharts.bar(
+    [10, 20, 30, 40],
+    title="Brunches",
+    mode="h",
+)
+print(chart)

@@ -9,16 +9,22 @@ Terminal charts with rich compatibility in mind
 
 ![](https://github.com/Abdur-RahmaanJ/termcharts/raw/stable/assets/bar.png)
 
+![](https://github.com/Abdur-RahmaanJ/termcharts/raw/stable/assets/bar_h.png)
+
 
 ```python
 import termcharts
 
 
-chart = termcharts.bar({'roll': 24, 'bread':10, 'rice':30, 'pasta':50}, title='brunches')
-print(chart)
+chart1 = termcharts.bar({'roll': 24, 'bread':10, 'rice':30, 'pasta':50}, title='brunches')
+chart2 = termcharts.bar({'roll': 24, 'bread':10, 'rice':30, 'pasta':50}, title='brunches', mode='v') # vertical
+chart3 = termcharts.bar([10, 20, 30, 40], title='brunches') # from list
+print(chart1)
+print(chart2)
+print(chart3)
 ```
 
-# pie
+# Pie
 
 ```python
 import termcharts
@@ -28,7 +34,7 @@ chart = termcharts.pie({'pencil':10, 'eraser': 20, 'ruler': 30}, title='stationa
 print(chart)
 ```
 
-# doughnut
+# Doughnut
 
 ```python
 import termcharts
@@ -54,7 +60,7 @@ from rich.panel import Panel
 console = Console()
 
 charts = [
-    doughnut({'a':10, 'b': 20, 'c': 30, 'd': 20}, title='aphabet dist', rich=True), 
+    doughnut({'a':10, 'b': 20, 'c': 30, 'd': 20}, title='aphabet dist', rich=True),
     pie({'wefwefqwddwqdqwda':10, 'b': 20, 'c': 30, 'd': 20}, rich=True),
     bar({'roll': 24, 'bss':10, 'wes':30, 'ewfwef':50}, title='Brunches', rich=True)
     ]
